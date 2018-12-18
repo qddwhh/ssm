@@ -33,13 +33,6 @@
             <version>3.4.5</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.mchange/c3p0 -->
-        <dependency>
-            <groupId>com.mchange</groupId>
-            <artifactId>c3p0</artifactId>
-            <version>0.9.5.2</version>
-        </dependency>
-
         <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 
         <!--myBatis包里没有msql驱动所以要自己引入-->
@@ -149,9 +142,6 @@
             <artifactId>standard</artifactId>
             <version>1.1.2</version>
         </dependency>
-
-
-
 
 
         <!-- https://mvnrepository.com/artifact/commons-fileupload/commons-fileupload -->
