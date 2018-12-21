@@ -2,8 +2,9 @@
 	pageEncoding="UTF-8"%>
 <%@ page trimDirectiveWhitespaces="true"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%--<%@ taglib prefix="itheima" uri="http://itcast.cn/common/"%>--%>
+<%@ taglib prefix="steven" uri="http://steven.cn/common/"%>
 <%
+	/*获取完整的项目uri根目录*/
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
@@ -210,7 +211,7 @@
 			<!-- /.row -->
 			<div class="panel panel-default">
 				<div class="panel-body">
-					<form class="form-inline" action="${pageContext.request.contextPath }/customer/list.action" method="post">
+					<form class="form-inline" action="${pageContext.request.contextPath }/list" method="post">
 						<div class="form-group">
 							<label for="customerName">客户名称</label> 
 							<input type="text" class="form-control" id="customerName" value="${custName }" name="custName">
@@ -220,29 +221,32 @@
 							<select	class="form-control" id="customerFrom" placeholder="客户来源" name="custSource">
 								<option value="">--请选择--</option>
 								<c:forEach items="${fromType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custSource}"> selected</c:if>>${item.dict_item_name }</option>
+									<option value="${item.dictId}"<c:if test="${item.dictId == custSource}"> selected</c:if>>${item.dictItemName }</option>
 								</c:forEach>
 							</select>
 						</div>
 						<div class="form-group">
-							<label for="custIndustry">所属行业</label> 
+							<label for="custIndustry">所属行业</label>
 							<select	class="form-control" id="custIndustry"  name="custIndustry">
 								<option value="">--请选择--</option>
 								<c:forEach items="${industryType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custIndustry}"> selected</c:if>>${item.dict_item_name }</option>
+									<option value="${item.dictId}"<c:if test="${item.dictId == custIndustry}"> selected</c:if>>${item.dictItemName }</option>
 								</c:forEach>
 							</select>
 						</div>
-						<div class="form-group">
-							<label for="custLevel">客户级别</label>
-							<select	class="form-control" id="custLevel" name="custLevel">
-								<option value="">--请选择--</option>
-								<c:forEach items="${levelType}" var="item">
-									<option value="${item.dict_id}"<c:if test="${item.dict_id == custLevel}"> selected</c:if>>${item.dict_item_name }</option>
-								</c:forEach>
-							</select>
-						</div>
-						<button type="submit" class="btn btn-primary">查询</button>
+
+                        <div class="form-group">
+                            <label for="custLevel">客户级别</label>
+                            <select	class="form-control" id="custLevel" name="custLevel">
+                                <option value="">--请选择--</option>
+                                <c:forEach items="${levelType}" var="item">
+                                    <option value="${item.dictId}"<c:if test="${item.dictId == custLevel}"> selected</c:if>>${item.dictItemName }</option>
+                                </c:forEach>
+                            </select>
+                        </div>
+
+
+                        <button type="submit" class="btn btn-primary">查询</button>
 					</form>
 				</div>
 			</div>
@@ -283,7 +287,7 @@
 							</tbody>
 						</table>
 						<div class="col-md-12 text-right">
-							<%--<itheima:page url="${pageContext.request.contextPath }/customer/list.action" />--%>
+							<steven:page url="${pageContext.request.contextPath }/list" /><%--这个地方用到了一个分页插件,还是挺好用的下次我试试pagehelper--%>
 						</div>
 						<!-- /.panel-body -->
 					</div>
@@ -321,7 +325,7 @@
 								<select	class="form-control" id="edit_customerFrom" placeholder="客户来源" name="cust_source">
 									<option value="">--请选择--</option>
 									<c:forEach items="${fromType}" var="item">
-										<option value="${item.dict_id}"<c:if test="${item.dict_id == custSource}"> selected</c:if>>${item.dict_item_name }</option>
+										<option value="${item.dictId}"<c:if test="${item.dictId == custSource}"> selected</c:if>>${item.dictItemName }</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -332,7 +336,7 @@
 								<select	class="form-control" id="edit_custIndustry"  name="cust_industry">
 									<option value="">--请选择--</option>
 									<c:forEach items="${industryType}" var="item">
-										<option value="${item.dict_id}"<c:if test="${item.dict_id == custIndustry}"> selected</c:if>>${item.dict_item_name }</option>
+										<option value="${item.dictId}"<c:if test="${item.dictId == custIndustry}"> selected</c:if>>${item.dictItemName }</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -343,7 +347,7 @@
 								<select	class="form-control" id="edit_custLevel" name="cust_level">
 									<option value="">--请选择--</option>
 									<c:forEach items="${levelType}" var="item">
-										<option value="${item.dict_id}"<c:if test="${item.dict_id == custLevel}"> selected</c:if>>${item.dict_item_name }</option>
+										<option value="${item.dictId}"<c:if test="${item.dictId == custLevel}"> selected</c:if>>${item.dictItemName }</option>
 									</c:forEach>
 								</select>
 							</div>
@@ -409,7 +413,7 @@
 		function editCustomer(id) {
 			$.ajax({
 				type:"get",
-				url:"<%=basePath%>customer/edit.action",
+				url:"<%=basePath%>edit",
 				data:{"id":id},
 				success:function(data) {  
 					$("#edit_cust_id").val(data.cust_id);
@@ -427,7 +431,7 @@
 			});
 		}
 		function updateCustomer() {
-			$.post("<%=basePath%>customer/update.action",$("#edit_customer_form").serialize(),function(data){
+			$.post("<%=basePath%>update",$("#edit_customer_form").serialize(),function(data){
 				alert("客户信息更新成功！");
 				window.location.reload();
 			});
@@ -435,7 +439,7 @@
 		
 		function deleteCustomer(id) {
 			if(confirm('确实要删除该客户吗?')) {
-				$.post("<%=basePath%>customer/delete.action",{"id":id},function(data){
+				$.post("<%=basePath%>delete",{"id":id},function(data){
 					alert("客户删除更新成功！");
 					window.location.reload();
 				});

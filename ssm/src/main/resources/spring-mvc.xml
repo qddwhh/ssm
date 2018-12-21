@@ -13,7 +13,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
     <!--让springmvc知道我们使用注解配置springmvc,它代替了配置HandlerMapping和HandlerAdapter这两个组件,开启了它代表着开启
     了使用注解的这两个配置-->
     <mvc:annotation-driven >
-        <!-- 解决Controller返回json中文乱码问题
+         <!--解决乱码问题-->
         <mvc:message-converters register-defaults="true">
             <bean class="org.springframework.http.converter.StringHttpMessageConverter">
                 <property name="supportedMediaTypes">
@@ -23,7 +23,7 @@ http://www.springframework.org/schema/mvc/spring-mvc.xsd">
                     </list>
                 </property>
             </bean>
-        </mvc:message-converters>-->
+        </mvc:message-converters>
     </mvc:annotation-driven>
 
     <!--配置静态资源处理器，解决静态资源无法加载的问题-->
