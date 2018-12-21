@@ -1,0 +1,22 @@
+学习积累:
+1.
+/*获取完整的项目uri根目录 */
+	String path = request.getContextPath();
+	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
+
+2.
+ @RequestMapping("update")
+    @ResponseBody //这里需要加@ResponseBody注解，使其不走视图解析器 也就是说这个方法用于响应ajax请求的
+    public void update(Customer customer){
+        customerService.updateCustomer(customer);
+    }
+3.
+  //limit语句采用字符串拼接的方式添加
+        if (customerWrap.getStart() != null) {
+            sql += (" limit #{start},#{rows}");
+        }
+
+4.
+.tld文件是标签库文件,可以自定义一个,引用时引用的uri属性必须与.tld文件中的uri属性对应
+<uri>http://steven.cn/common/</uri> <!--这个uri可以随便写但是在页面引入标签时要与之对应 -->
