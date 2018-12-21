@@ -4,7 +4,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="steven" uri="http://steven.cn/common/"%>
 <%
-	/*获取完整的项目uri根目录*/
+	/*获取完整的项目uri根目录 这个可以记住*/
 	String path = request.getContextPath();
 	String basePath = request.getScheme() + "://" + request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";

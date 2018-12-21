@@ -58,7 +58,7 @@ public class CustomerController {
     }
 
     @RequestMapping("update")
-    @ResponseBody //这里需要加@ResponseBody注解，使其不走视图解析器
+    @ResponseBody //这里需要加@ResponseBody注解，使其不走视图解析器 也就是说这个方法用于响应ajax请求的
     public void update(Customer customer){
         customerService.updateCustomer(customer);
     }
